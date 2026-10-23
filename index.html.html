@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Life Reset · 66 ngày</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0c0f;--panel:#12161b;--line:#222a33;--tx:#e6ebf0;--mu:#8a96a3;--g:#39ff88;--p:#a569ff;--o:#ff8a2b;--r:10px;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 "Be Vietnam Pro",system-ui,sans-serif;min-height:100vh;background-image:radial-gradient(circle at 85% -10%,#a569ff18,transparent 40%),radial-gradient(circle at 0 100%,#39ff8812,transparent 40%)}
+h1,h2,.num{font-family:"Chakra Petch","Be Vietnam Pro",sans-serif;margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+h1{font-size:26px;letter-spacing:.02em;color:var(--g);text-shadow:0 0 18px #39ff8855}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:5px 12px;font-size:13px;color:var(--mu)}
+.chip b{color:var(--tx);font-weight:600}
+nav{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto}
+nav button{flex:none;background:none;border:1px solid var(--line);color:var(--mu);border-radius:var(--r);padding:8px 16px;font:500 14px inherit;font-family:inherit;cursor:pointer}
+nav button.on{color:var(--bg);background:var(--g);border-color:var(--g);box-shadow:0 0 16px #39ff8844}
+.grid{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.full{grid-column:1/-1}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+h2{font-size:17px;margin-bottom:12px}
+.lvl{display:flex;align-items:baseline;gap:12px}
+.lvl .num{font-size:44px;font-weight:700;color:var(--p);text-shadow:0 0 20px #a569ff66}
+.bar{height:12px;background:#1b222a;border-radius:99px;overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--g));border-radius:99px;transition:width .5s}
+.mu{color:var(--mu);font-size:13px}
+.q{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--line);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:border-color .15s,background .15s}
+.q:hover{border-color:#39ff8866}
+.q.d{background:#39ff8810;border-color:#39ff8855}
+.q.d .n{text-decoration:line-through;color:var(--mu)}
+.ck{flex:none;width:22px;height:22px;border:2px solid var(--mu);border-radius:6px;display:grid;place-items:center;color:transparent;font-size:14px;font-weight:700}
+.q.d .ck{background:var(--g);border-color:var(--g);color:var(--bg)}
+.n{flex:1}
+.tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid}
+.e{color:var(--g)}.m{color:var(--p)}.h{color:var(--o)}
+.x{background:none;border:0;color:var(--mu);cursor:pointer;font-size:16px;padding:2px 6px}
+.x:hover{color:var(--o)}
+input,select,textarea{background:#0d1115;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:9px 10px;font:inherit;min-width:0}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--p);outline-offset:1px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.row input[type=text]{flex:1 1 160px}
+.btn{background:var(--g);color:#06120b;border:0;border-radius:8px;padding:9px 16px;font:600 14px inherit;font-family:inherit;cursor:pointer}
+.btn.s{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.btn.o{background:var(--o);color:#1a0d00}
+.sw{display:flex;gap:10px;align-items:center;cursor:pointer;font-size:13px;color:var(--mu)}
+.sw input{accent-color:var(--o);width:16px;height:16px}
+.leg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-top:6px;font-size:13px}
+.leg span i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.clock{font:700 76px/1 "Chakra Petch",sans-serif;text-align:center;margin:18px 0;color:var(--g);text-shadow:0 0 28px #39ff8855}
+.clock.br{color:var(--o);text-shadow:0 0 28px #ff8a2b55}
+.ctr{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.mantra{font:500 20px/1.45 "Chakra Petch",sans-serif;color:var(--tx);border-left:3px solid var(--p);padding-left:14px;margin:6px 0 14px}
+.f{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+textarea{width:100%;min-height:240px;resize:vertical;line-height:1.6}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--p);color:#fff;padding:10px 18px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:9}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+body.bgimg::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--bgi) center/cover}
+body.bgimg::after{content:"";position:fixed;inset:0;z-index:-1;background:rgba(10,12,15,var(--dim,.75))}
+body.bgimg .card{background:#12161bd9;backdrop-filter:blur(6px)}
+.coin{color:#ffd24a}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.item{border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;justify-content:space-between}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat div{border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.stat b{display:block;font:700 26px "Chakra Petch",sans-serif;color:var(--g)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>LIFE RESET</h1>
+    <div class="chips" id="chips"></div>
+  </header>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<div id="toast" role="status"></div>
+<script>
+const K='lifereset.v1';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dstr=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+const today=()=>dstr(Date.now());
+const addDays=(s,n)=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return dstr(d)};
+const diffDays=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5);
+
+const STATS={dis:['Kỷ luật','#39ff88'],mind:['Tâm trí','#a569ff'],str:['Thể lực','#ff8a2b'],foc:['Tập trung','#38d6ff'],hp:['Sức khỏe','#ff4f8b']};
+const DIFF={e:['Dễ',10,1],m:['Trung bình',20,2],h:['Khó',40,4]};
+const DQ=[
+ {n:'Dậy trước 6:30 sáng',s:'dis',d:'m'},{n:'Đọc sách 20 trang',s:'mind',d:'m'},
+ {n:'Tập thể dục 30 phút',s:'str',d:'h'},{n:'Một phiên tập trung 25 phút, không điện thoại',s:'foc',d:'m'},
+ {n:'Uống đủ 2 lít nước',s:'hp',d:'e'},{n:'Viết nhật ký vài dòng',s:'mind',d:'e'},
+ {n:'Ngủ trước 23:00',s:'hp',d:'m'},{n:'Dọn gọn bàn làm việc',s:'dis',d:'e'}];
+const MANTRAS=['Mỗi ngày một chút, 66 ngày sau bạn sẽ không nhận ra mình.','Kỷ luật là món quà bạn gửi cho chính mình của ngày mai.','Đừng chờ có động lực. Hãy bắt đầu, động lực sẽ đến sau.','Bỏ lỡ một ngày là sự cố. Bỏ lỡ hai ngày là thói quen mới.','Bạn không cần hoàn hảo, bạn chỉ cần xuất hiện.','Cơ thể làm được. Tâm trí cần được thuyết phục.','Việc khó hôm nay là việc dễ của ngày mai.','Tập trung vào quá trình, kết quả sẽ tự đến.','Mỗi nhiệm vụ hoàn thành là một lá phiếu cho con người bạn muốn trở thành.','Nghỉ ngơi là một phần của tiến bộ, không phải sự đầu hàng.'];
+
+function load(){
+  const t=today();
+  const D={xp:0,stats:{dis:0,mind:0,str:0,foc:0,hp:0},quests:DQ.map((q,i)=>({id:'q'+i,...q})),done:{},streak:0,checked:addDays(t,-1),start:t,hard:false,journal:{},cal:{},goal:2000,focus:{},fmin:{},coins:0,best:0,fullDays:0,tf:25,tb:5,bg:'',dim:.75,books:[],redeemed:[],
+    shop:[{id:'r1',n:'Uống 1 ly cà phê specialty',c:50},{id:'r2',n:'Xem 1 bộ phim rạp',c:120},{id:'r3',n:'Chơi game 2 tiếng tự do',c:80}]};
+  try{const s=JSON.parse(localStorage.getItem(K));if(s&&s.quests)return{...D,...s}}catch(e){}
+  return D;
+}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+let S=load(),tab='home',mi=0;
+
+// Chuỗi ngày và phạt Hard Mode, xử lý các ngày đã qua
+function rollover(){
+  const t=today();let d=addDays(S.checked,1);
+  while(d<t){
+    const n=S.quests.length,dn=(S.done[d]||[]).filter(id=>S.quests.some(q=>q.id==id)).length;
+    if(n&&dn>=n){S.streak++;S.fullDays++;S.best=Math.max(S.best,S.streak)}
+    else{
+      if(S.hard&&n&&S.streak>0||S.hard&&n){S.xp=Math.max(0,S.xp-15*(n-dn))}
+      S.streak=0;
+    }
+    S.checked=d;d=addDays(d,1);
+  }
+  save();
+}
+function lv(xp){let l=1,n=100;while(xp>=n){xp-=n;l++;n=100+(l-1)*50}return{l,cur:xp,need:n}}
+function doneToday(){return(S.done[today()]||[]).filter(id=>S.quests.some(q=>q.id==id))}
+function allDone(){return S.quests.length>0&&doneToday().length>=S.quests.length}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2200)}
+function gain(xp,stat,sp){
+  const a=lv(S.xp).l;S.xp=Math.max(0,S.xp+xp);
+  if(stat)S.stats[stat]=Math.max(0,S.stats[stat]+sp);
+  const b=lv(S.xp).l;if(b>a)toast('Lên cấp '+b+'!');
+}
+
+const COIN={e:3,m:6,h:12};
+const bonus=()=>10+Math.min(S.streak,20);
+const fd=d=>d.split('-').reverse().join('/');
+function addCoin(n){S.coins=Math.max(0,S.coins+n)}
+function toggle(id){
+  const t=today(),q=S.quests.find(x=>x.id==id),a=S.done[t]=S.done[t]||[],i=a.indexOf(id),[,xp,sp]=DIFF[q.d],s=i<0?1:-1,was=allDone();
+  if(i<0)a.push(id);else a.splice(i,1);
+  gain(s*xp,q.s,s*sp);addCoin(s*COIN[q.d]);
+  const now=allDone();
+  if(!was&&now){addCoin(bonus());toast('Hoàn thành cả ngày! +'+bonus()+' coin thưởng chuỗi')}
+  else if(was&&!now)addCoin(-bonus());
+  save();render();
+}
+function addQ(){
+  const n=$('#qn').value.trim();if(!n)return;
+  S.quests.push({id:'q'+Date.now(),n,s:$('#qs').value,d:$('#qd').value});save();render();
+}
+function delQ(id,e){e.stopPropagation();if(!confirm('Xóa nhiệm vụ này?'))return;S.quests=S.quests.filter(q=>q.id!=id);save();render()}
+function setHard(v){S.hard=v;save();toast(v?'Hard Mode bật: bỏ nhiệm vụ sẽ bị trừ XP':'Hard Mode tắt');render()}
+function resetAll(){if(confirm('Xóa toàn bộ dữ liệu và bắt đầu lại?')){localStorage.removeItem(K);S=load();render()}}
+
+function radar(){
+  const ks=Object.keys(STATS),mx=Math.ceil(Math.max(10,...ks.map(k=>S.stats[k]))/10)*10,C=150,R=100;
+  const pt=(i,f)=>{const a=-Math.PI/2+i*2*Math.PI/5;return[C+Math.cos(a)*R*f,C+Math.sin(a)*R*f]};
+  const ring=f=>`<polygon points="${ks.map((_,i)=>pt(i,f).join(',')).join(' ')}" fill="none" stroke="#26303a"/>`;
+  const poly=ks.map((k,i)=>pt(i,S.stats[k]/mx).join(',')).join(' ');
+  return`<svg viewBox="-30 -5 360 320" width="100%" style="max-width:380px;display:block;margin:0 auto" role="img" aria-label="Biểu đồ radar chỉ số nhân vật">
+  ${[.25,.5,.75,1].map(ring).join('')}
+  ${ks.map((_,i)=>`<line x1="${C}" y1="${C}" x2="${pt(i,1)[0]}" y2="${pt(i,1)[1]}" stroke="#26303a"/>`).join('')}
+  <polygon points="${poly}" fill="#a569ff44" stroke="#a569ff" stroke-width="2" style="filter:drop-shadow(0 0 8px #a569ff)"/>
+  ${ks.map((k,i)=>{const[x,y]=pt(i,S.stats[k]/mx);return`<circle cx="${x}" cy="${y}" r="4" fill="${STATS[k][1]}"/>`}).join('')}
+  ${ks.map((k,i)=>{const[x,y]=pt(i,1.25);return`<text x="${x}" y="${y}" text-anchor="middle" font-size="13" fill="${STATS[k][1]}">${STATS[k][0]}<tspan x="${x}" dy="15" fill="#e6ebf0" font-weight="700">${S.stats[k]}</tspan></text>`}).join('')}
+  </svg>`;
+}
+
+function home(){
+  const L=lv(S.xp),t=today(),dn=doneToday(),dayN=diffDays(S.start,t)+1;
+  const ad=allDone(),run=S.streak+(ad?1:0),since=run?addDays(t,ad?-(run-1):-run):null,fm=Object.values(S.fmin).reduce((a,b)=>a+b,0);
+  const mantra=MANTRAS[(parseInt(t.replace(/-/g,''))+mi)%MANTRAS.length];
+  return`<div class="grid">
+  <section class="card"><h2>Nhân vật</h2>
+    <div class="lvl"><span class="num">Cấp ${L.l}</span><span class="mu">${S.xp} XP tổng</span></div>
+    <div class="bar" role="progressbar" aria-valuenow="${L.cur}" aria-valuemax="${L.need}"><i style="width:${L.cur/L.need*100}%"></i></div>
+    <div class="mu">${L.cur} / ${L.need} XP tới cấp ${L.l+1}</div>
+    <div class="mu" style="margin-top:14px">${dayN>66?'Bạn đã hoàn thành lộ trình 66 ngày. Tiếp tục duy trì.':'Ngày '+dayN+' trong lộ trình 66 ngày'}</div>
+    <div class="bar"><i style="width:${Math.min(100,dayN/66*100)}%;background:var(--o)"></i></div>
+    <label class="sw" style="margin-top:12px"><input type="checkbox" ${S.hard?'checked':''} onchange="setHard(this.checked)">Hard Mode: bỏ nhiệm vụ sẽ mất chuỗi và bị trừ 15 XP mỗi nhiệm vụ</label>
+  </section>
+  <section class="card"><h2>Chỉ số</h2>${radar()}</section>
+  <section class="card full"><h2>Thời gian hành trình</h2><div class="stat">
+  <div><b>${run} ngày</b><span class="mu">Chuỗi hiện tại${since?', từ '+fd(since):''}</span></div>
+  <div><b>${Math.max(S.best,run)} ngày</b><span class="mu">Chuỗi dài nhất</span></div>
+  <div><b>${dayN} ngày</b><span class="mu">Từ khi bắt đầu (${fd(S.start)})</span></div>
+  <div><b>${S.fullDays+(ad?1:0)}</b><span class="mu">Ngày hoàn thành 100%</span></div>
+  <div><b>${Math.floor(fm/60)}g ${fm%60}p</b><span class="mu">Tổng thời gian tập trung</span></div></div></section>
+  <section class="card full"><h2>Nhiệm vụ hôm nay (${dn.length}/${S.quests.length})</h2>
+    ${S.quests.length?S.quests.map(q=>{const d=dn.includes(q.id),[dl,xp,sp]=DIFF[q.d];
+      return`<div class="q ${d?'d':''}" onclick="toggle('${q.id}')" role="checkbox" aria-checked="${d}" tabindex="0" onkeydown="if(event.target===this&&(event.key===' '||event.key==='Enter')){event.preventDefault();toggle('${q.id}')}">
+      <span class="ck">✓</span><span class="n">${esc(q.n)}</span>
+      <span class="mu">+${xp} XP · +${sp} ${STATS[q.s][0]} · +${COIN[q.d]} coin</span>
+      <span class="tag ${q.d}">${dl}</span><button class="btn s" style="padding:4px 10px" onclick="delQ('${q.id}',event)">Xóa</button></div>`}).join(''):'<p class="mu">Chưa có nhiệm vụ. Thêm nhiệm vụ đầu tiên bên dưới.</p>'}
+    <div class="row"><input type="text" id="qn" placeholder="Nhiệm vụ mới" onkeydown="if(event.key==='Enter')addQ()">
+      <select id="qs">${Object.entries(STATS).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select>
+      <select id="qd">${Object.entries(DIFF).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select>
+      <button class="btn" onclick="addQ()">Thêm</button></div>
+  </section>
+  <section class="card full"><h2>Thẻ động lực hôm nay</h2><p class="mantra">${mantra}</p>
+    <button class="btn s" onclick="mi++;render()">Rút thẻ khác</button>
+    <button class="btn s" style="float:right" onclick="resetAll()">Xóa dữ liệu</button></section>
+  </div>`;
+}
+
+// Focus timer
+const T={mode:'f',left:S.tf*60,run:false,end:0,iv:null};
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function tick(){
+  if(T.run){T.left=Math.max(0,Math.round((T.end-Date.now())/1000))}
+  const c=$('#clock');if(c)c.textContent=fmt(T.left);
+  document.title=T.run?fmt(T.left)+' · Life Reset':'Life Reset · 66 ngày';
+  if(T.run&&T.left<=0){
+    clearInterval(T.iv);T.run=false;
+    if(T.mode==='f'){S.focus[today()]=(S.focus[today()]||0)+1;S.fmin[today()]=(S.fmin[today()]||0)+S.tf;gain(15,'foc',1);addCoin(5);save();toast('Xong phiên! +15 XP, +1 Tập trung, +5 coin');setMode('b')}
+    else{toast('Hết giờ nghỉ');setMode('f')}
+  }
+}
+function setMode(m){clearInterval(T.iv);T.run=false;T.mode=m;T.left=(m==='f'?S.tf:S.tb)*60;render()}
+function startT(){if(T.run){T.left=Math.round((T.end-Date.now())/1000);T.run=false;clearInterval(T.iv)}else{T.run=true;T.end=Date.now()+T.left*1000;T.iv=setInterval(tick,500)}render()}
+function setDur(k,v){S[k]=Math.min(k==='tf'?180:60,Math.max(1,Math.round(+v)||25));save();if(!T.run)T.left=(T.mode==='f'?S.tf:S.tb)*60;render()}
+function focusTab(){
+  const n=S.focus[today()]||0;
+  return`<div class="grid"><section class="card full" style="text-align:center"><h2>Pomodoro</h2>
+  <div class="ctr"><button class="btn ${T.mode==='f'?'':'s'}" onclick="setMode('f')">Tập trung ${S.tf}′</button><button class="btn ${T.mode==='b'?'o':'s'}" onclick="setMode('b')">Nghỉ ${S.tb}′</button></div>
+  <div class="clock ${T.mode==='b'?'br':''}" id="clock">${fmt(T.left)}</div>
+  <div class="ctr"><button class="btn" onclick="startT()">${T.run?'Tạm dừng':'Bắt đầu'}</button><button class="btn s" onclick="setMode(T.mode)">Đặt lại</button></div>
+  <div class="row" style="justify-content:center"><label class="mu">Tập trung <input type="number" min="1" max="180" value="${S.tf}" style="width:70px" onchange="setDur('tf',this.value)"> phút</label><label class="mu">Nghỉ <input type="number" min="1" max="60" value="${S.tb}" style="width:70px" onchange="setDur('tb',this.value)"> phút</label></div>
+  <p class="mu" style="margin-top:18px">Hôm nay: ${n} phiên (${S.fmin[today()]||0} phút tập trung). Mỗi phiên: +15 XP, +1 Tập trung, +5 coin.</p></section></div>`;
+}
+
+// Calorie tracker
+function addFood(){
+  const g=id=>parseFloat($(id).value)||0,n=$('#fn').value.trim(),k=g('#fk');
+  if(!n||!k)return toast('Nhập tên món và calo');
+  const t=today();(S.cal[t]=S.cal[t]||[]).push({n,k,p:g('#fp'),c:g('#fc'),f:g('#ff')});save();render();
+}
+function delFood(i){S.cal[today()].splice(i,1);save();render()}
+function calTab(){
+  const l=S.cal[today()]||[],sum=k=>Math.round(l.reduce((a,x)=>a+x[k],0)),tot=sum('k'),pc=Math.min(100,tot/S.goal*100);
+  return`<div class="grid"><section class="card"><h2>Hôm nay: ${tot} / ${S.goal} kcal</h2>
+  <div class="bar"><i style="width:${pc}%;${tot>S.goal?'background:var(--o)':''}"></i></div>
+  <p class="mu">Đạm ${sum('p')}g · Tinh bột ${sum('c')}g · Béo ${sum('f')}g</p>
+  <label class="mu">Mục tiêu kcal/ngày <input type="number" value="${S.goal}" style="width:90px" onchange="S.goal=Math.max(1,+this.value||2000);save();render()"></label></section>
+  <section class="card"><h2>Thêm món ăn</h2>
+  <div class="row" style="margin:0"><input type="text" id="fn" placeholder="Tên món"><input type="number" id="fk" placeholder="kcal" style="width:80px"></div>
+  <div class="row"><input type="number" id="fp" placeholder="Đạm g" style="width:90px"><input type="number" id="fc" placeholder="Tinh bột g" style="width:100px"><input type="number" id="ff" placeholder="Béo g" style="width:90px"><button class="btn" onclick="addFood()">Thêm</button></div></section>
+  <section class="card full"><h2>Nhật ký ăn uống</h2>${l.length?l.map((x,i)=>`<div class="f"><span>${esc(x.n)}</span><span class="mu">${x.k} kcal · ${x.p}P ${x.c}C ${x.f}F <button class="x" aria-label="Xóa" onclick="delFood(${i})">✕</button></span></div>`).join(''):'<p class="mu">Chưa ghi món nào hôm nay.</p>'}</section></div>`;
+}
+
+// Journal
+function jrTab(){
+  const t=today(),past=Object.entries(S.journal).filter(([d,v])=>d!==t&&v.trim()).sort().reverse().slice(0,7);
+  return`<div class="grid"><section class="card full"><h2>Nhật ký ngày ${t.split('-').reverse().join('/')}</h2>
+  <textarea id="jt" placeholder="Hôm nay bạn đã làm được gì? Điều gì cần cải thiện?" oninput="S.journal[today()]=this.value;save()">${esc(S.journal[t]||'')}</textarea>
+  <p class="mu">Tự động lưu trong trình duyệt của bạn.</p></section>
+  ${past.length?`<section class="card full"><h2>Những ngày trước</h2>${past.map(([d,v])=>`<div class="f"><span class="mu" style="flex:none">${d.split('-').reverse().join('/')}</span><span style="flex:1;margin-left:12px">${esc(v.slice(0,160))}${v.length>160?'…':''}</span></div>`).join('')}</section>`:''}</div>`;
+}
+
+// Sách
+function addBook(){const n=$('#bn').value.trim();if(!n)return toast('Nhập tên sách');S.books.push({id:'b'+Date.now(),n,s:$('#bd').value||today(),e:null});save();render()}
+function finBook(id){const b=S.books.find(x=>x.id==id);b.e=today();gain(50,'mind',3);addCoin(30);save();render();toast('Xong một cuốn! +50 XP, +3 Tâm trí, +30 coin')}
+function delBook(id){if(confirm('Xóa sách này?')){S.books=S.books.filter(b=>b.id!=id);save();render()}}
+function bookTab(){
+  const dn=S.books.filter(b=>b.e),avg=dn.length?Math.round(dn.reduce((a,b)=>a+diffDays(b.s,b.e)+1,0)/dn.length):0;
+  const row=b=>{const n=diffDays(b.s,b.e||today())+1;return`<div class="f" style="align-items:center"><span><b>${esc(b.n)}</b><br><span class="mu">Bắt đầu ${fd(b.s)}${b.e?' · xong '+fd(b.e)+' · mất '+n+' ngày':' · đang đọc ngày thứ '+n}</span></span><span class="ctr">${b.e?'':`<button class="btn" onclick="finBook('${b.id}')">Hoàn thành</button>`}<button class="btn s" onclick="delBook('${b.id}')">Xóa</button></span></div>`};
+  return`<div class="grid"><section class="card full"><h2>Thêm sách</h2><div class="row" style="margin:0"><input type="text" id="bn" placeholder="Tên sách"><label class="mu">Bắt đầu <input type="date" id="bd" value="${today()}"></label><button class="btn" onclick="addBook()">Bắt đầu đọc</button></div></section>
+  <section class="card"><h2>Đang đọc</h2>${S.books.filter(b=>!b.e).map(row).join('')||'<p class="mu">Chưa có cuốn nào đang đọc.</p>'}</section>
+  <section class="card"><h2>Đã đọc xong (${dn.length})</h2>${dn.length?`<p class="mu">Trung bình ${avg} ngày mỗi cuốn.</p>`:''}${dn.slice().reverse().map(row).join('')||'<p class="mu">Chưa hoàn thành cuốn nào.</p>'}</section></div>`;
+}
+
+// Cửa hàng
+function addRw(){const n=$('#rn').value.trim(),c=Math.round(+$('#rc').value);if(!n||c<1)return toast('Nhập tên và giá coin');S.shop.push({id:'r'+Date.now(),n,c});save();render()}
+function delRw(id){if(confirm('Xóa phần thưởng này?')){S.shop=S.shop.filter(r=>r.id!=id);save();render()}}
+function redeem(id){const r=S.shop.find(x=>x.id==id);if(S.coins<r.c)return toast('Chưa đủ coin');S.coins-=r.c;S.redeemed.unshift({n:r.n,c:r.c,t:Date.now()});save();render();celebrate();toast('Đã nhận thưởng: '+r.n)}
+function celebrate(){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const cols=['#39ff88','#a569ff','#ff8a2b','#ffd24a','#38d6ff'];
+  for(let i=0;i<70;i++){const e=document.createElement('i');Object.assign(e.style,{position:'fixed',left:'50%',top:'60%',width:'8px',height:'12px',background:cols[i%5],zIndex:99,pointerEvents:'none'});document.body.appendChild(e);
+    const a=-Math.random()*Math.PI,v=200+Math.random()*350;
+    e.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${Math.cos(a)*v}px,${Math.sin(a)*v+260}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1400+Math.random()*600,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>e.remove()}
+}
+function shopTab(){
+  return`<div class="grid"><section class="card full"><h2>Cửa hàng phần thưởng · <span class="coin">🪙 ${S.coins}</span></h2>
+  <div class="shop">${S.shop.map(r=>{const ok=S.coins>=r.c;return`<div class="item"><div>${esc(r.n)}</div><div class="coin"><b>🪙 ${r.c}</b> <span class="mu">${ok?'':'· còn thiếu '+(r.c-S.coins)}</span></div><div class="ctr" style="justify-content:flex-start"><button class="btn ${ok?'o':'s'}" ${ok?'':'disabled style="opacity:.5;cursor:not-allowed"'} onclick="redeem('${r.id}')">Redeem</button><button class="btn s" onclick="delRw('${r.id}')">Xóa</button></div></div>`}).join('')||'<p class="mu">Chưa có phần thưởng nào. Thêm một phần thưởng bên dưới.</p>'}</div>
+  <div class="row"><input type="text" id="rn" placeholder="Phần thưởng mới"><input type="number" id="rc" placeholder="Coin" min="1" style="width:90px"><button class="btn" onclick="addRw()">Thêm</button></div>
+  <p class="mu">Kiếm coin: nhiệm vụ Dễ +3, Trung bình +6, Khó +12. Xong cả ngày thưởng thêm ${bonus()} coin (tăng theo chuỗi). Mỗi phiên tập trung +5, mỗi cuốn sách +30.</p></section>
+  ${S.redeemed.length?`<section class="card full"><h2>Đã đổi gần đây</h2>${S.redeemed.slice(0,8).map(r=>`<div class="f"><span>${esc(r.n)}</span><span class="mu">-${r.c} coin · ${new Date(r.t).toLocaleDateString('vi-VN')}</span></div>`).join('')}</section>`:''}</div>`;
+}
+
+// Cài đặt
+function applyBg(){document.body.classList.toggle('bgimg',!!S.bg);document.body.style.setProperty('--bgi',S.bg?`url("${S.bg}")`:'none');document.body.style.setProperty('--dim',S.dim)}
+function setBg(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*m;c.height=im.height*m;c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.bg=c.toDataURL('image/jpeg',.72);save();applyBg();render();toast('Đã đặt ảnh nền')};im.src=r.result};r.readAsDataURL(f)}
+function setTab(){return`<div class="grid"><section class="card full"><h2>Ảnh nền</h2>
+  <input type="file" accept="image/*" onchange="setBg(this)">
+  ${S.bg?`<div class="row"><label class="mu">Độ tối lớp phủ <input type="range" min="40" max="95" value="${S.dim*100}" oninput="S.dim=this.value/100;applyBg();save()"></label><button class="btn s" onclick="S.bg='';save();applyBg();render()">Xóa ảnh nền</button></div>`:'<p class="mu">Chọn một ảnh từ máy. Ảnh được nén và lưu ngay trong trình duyệt, không tải lên đâu cả.</p>'}</section>
+  <section class="card full"><h2>Dữ liệu</h2><button class="btn s" onclick="resetAll()">Xóa toàn bộ dữ liệu</button></section></div>`}
+
+const TABS=[['home','Bảng điều khiển',home],['focus','Tập trung',focusTab],['cal','Calo',calTab],['jr','Nhật ký',jrTab],['book','Sách',bookTab],['shop','Cửa hàng',shopTab],['set','Cài đặt',setTab]];
+function render(){
+  const streak=S.streak+(allDone()?1:0);
+  $('#chips').innerHTML=`<span class="chip">Chuỗi <b>${streak} ngày</b></span><span class="chip">🪙 <b class="coin">${S.coins}</b></span><span class="chip">Cấp <b>${lv(S.xp).l}</b></span>${S.hard?'<span class="chip" style="color:var(--o);border-color:var(--o)">Hard Mode</span>':''}`;
+  $('#nav').innerHTML=TABS.map(t=>`<button class="${tab===t[0]?'on':''}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join('');
+  $('#main').innerHTML=TABS.find(t=>t[0]===tab)[2]();
+}
+rollover();applyBg();render();
+</script>
+</body>
+</html>

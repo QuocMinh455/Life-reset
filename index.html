@@ -34,10 +34,10 @@ h2{font-size:17px;margin-bottom:12px}
 .q{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--line);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:border-color .15s,background .15s}
 .q:hover{border-color:#39ff8866}
 .q.d{background:#39ff8810;border-color:#39ff8855}
-.q.d .n{text-decoration:line-through;color:var(--mu)}
+.q.d .qt{text-decoration:line-through;color:var(--mu)}
 .ck{flex:none;width:22px;height:22px;border:2px solid var(--mu);border-radius:6px;display:grid;place-items:center;color:transparent;font-size:14px;font-weight:700}
 .q.d .ck{background:var(--g);border-color:var(--g);color:var(--bg)}
-.n{flex:1}
+.n{flex:1;min-width:0}.qt{overflow-wrap:anywhere;line-height:1.35}.qm{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:5px}.q .btn.s{flex:none}
 .tag{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid}
 .e{color:var(--g)}.m{color:var(--p)}.h{color:var(--o)}
 .x{background:none;border:0;color:var(--mu);cursor:pointer;font-size:16px;padding:2px 6px}
@@ -193,9 +193,9 @@ function home(){
   <section class="card full"><h2>Nhiệm vụ hôm nay (${dn.length}/${S.quests.length})</h2>
     ${S.quests.length?S.quests.map(q=>{const d=dn.includes(q.id),[dl,xp,sp]=DIFF[q.d];
       return`<div class="q ${d?'d':''}" onclick="toggle('${q.id}')" role="checkbox" aria-checked="${d}" tabindex="0" onkeydown="if(event.target===this&&(event.key===' '||event.key==='Enter')){event.preventDefault();toggle('${q.id}')}">
-      <span class="ck">✓</span><span class="n">${esc(q.n)}</span>
-      <span class="mu">+${xp} XP · +${sp} ${STATS[q.s][0]} · +${COIN[q.d]} coin</span>
-      <span class="tag ${q.d}">${dl}</span><button class="btn s" style="padding:4px 10px" onclick="delQ('${q.id}',event)">Xóa</button></div>`}).join(''):'<p class="mu">Chưa có nhiệm vụ. Thêm nhiệm vụ đầu tiên bên dưới.</p>'}
+      <span class="ck">✓</span><div class="n"><div class="qt">${esc(q.n)}</div><div class="qm"><span class="tag ${q.d}">${dl}</span>
+      <span class="mu">+${xp} XP · +${sp} ${STATS[q.s][0]} · +${COIN[q.d]} coin</span></div></div>
+      <button class="btn s" style="padding:4px 10px" onclick="delQ('${q.id}',event)">Xóa</button></div>`}).join(''):'<p class="mu">Chưa có nhiệm vụ. Thêm nhiệm vụ đầu tiên bên dưới.</p>'}
     <div class="row"><input type="text" id="qn" placeholder="Nhiệm vụ mới" onkeydown="if(event.key==='Enter')addQ()">
       <select id="qs">${Object.entries(STATS).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select>
       <select id="qd">${Object.entries(DIFF).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select>

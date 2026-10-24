@@ -65,7 +65,7 @@ textarea{width:100%;min-height:240px;resize:vertical;line-height:1.6}
 body.bgimg::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--bgi) center/cover}
 body.bgimg::after{content:"";position:fixed;inset:0;z-index:-1;background:rgba(10,12,15,var(--dim,.75))}
 body.bgimg .card{background:#12161bd9;backdrop-filter:blur(6px)}
-.coin{color:#ffd24a}
+.coin{color:#ffd24a}#qdays{gap:10px;flex-wrap:wrap;align-items:center}
 .shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .item{border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;justify-content:space-between}
 .stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
@@ -115,7 +115,7 @@ let S=load(),tab='home',mi=0;
 function rollover(){
   const t=today();let d=addDays(S.checked,1);
   while(d<t){
-    const n=S.quests.length,dn=(S.done[d]||[]).filter(id=>S.quests.some(q=>q.id==id)).length;
+    const qs=S.quests.filter(q=>appliesOn(q,d)),n=qs.length,dn=(S.done[d]||[]).filter(id=>qs.some(q=>q.id==id)).length;if(!n){S.checked=d;d=addDays(d,1);continue}
     if(n&&dn>=n){S.streak++;S.fullDays++;S.best=Math.max(S.best,S.streak)}
     else{
       if(S.hard&&n&&S.streak>0||S.hard&&n){S.xp=Math.max(0,S.xp-15*(n-dn))}
@@ -125,9 +125,18 @@ function rollover(){
   }
   save();
 }
+const VERSION='1.3';
+const DN={1:'T2',2:'T3',3:'T4',4:'T5',5:'T6',6:'T7',0:'CN'},WD=[1,2,3,4,5,6,0];
+function appliesOn(q,d){if(q.o)return q.o===d;if(q.w&&q.w.length)return q.w.includes(new Date(d+'T12:00:00').getDay());return true}
+function sched(q){if(q.o)return 'Chỉ ngày '+fd(q.o);const w=q.w;if(!w||w.length>=7)return 'Hàng ngày';const l=WD.filter(x=>w.includes(x));const k=l.join();return k==='1,2,3,4,5'?'T2–T6':k==='6,0'?'T7, CN':l.map(x=>DN[x]).join(', ')}
+function schedUI(){const v=$('#qw').value;$('#qdays').style.display=v==='cus'?'flex':'none';$('#qo').style.display=v==='once'?'':'none'}
+function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='life-reset-'+today()+'.json';a.click();toast('Đã xuất file sao lưu')}
+function importData(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!Array.isArray(o.quests))throw 0;if(!confirm('Thay toàn bộ dữ liệu hiện tại bằng file sao lưu này?'))return;localStorage.setItem(K,JSON.stringify(o));S=load();rollover();applyBg();render();toast('Đã nhập dữ liệu')}catch(e){toast('File sao lưu không hợp lệ')}};r.readAsText(f)}
+async function freshLoad(){try{await fetch(location.pathname,{cache:'reload'})}catch(e){}location.reload()}
 function lv(xp){let l=1,n=100;while(xp>=n){xp-=n;l++;n=100+(l-1)*50}return{l,cur:xp,need:n}}
-function doneToday(){return(S.done[today()]||[]).filter(id=>S.quests.some(q=>q.id==id))}
-function allDone(){return S.quests.length>0&&doneToday().length>=S.quests.length}
+function todayQ(){const t=today();return S.quests.filter(q=>appliesOn(q,t))}
+function doneToday(){const tq=todayQ();return(S.done[today()]||[]).filter(id=>tq.some(q=>q.id==id))}
+function allDone(){const n=todayQ().length;return n>0&&doneToday().length>=n}
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2200)}
 function gain(xp,stat,sp){
   const a=lv(S.xp).l;S.xp=Math.max(0,S.xp+xp);
@@ -150,7 +159,11 @@ function toggle(id){
 }
 function addQ(){
   const n=$('#qn').value.trim();if(!n)return;
-  S.quests.push({id:'q'+Date.now(),n,s:$('#qs').value,d:$('#qd').value});save();render();
+  const q={id:'q'+Date.now(),n,s:$('#qs').value,d:$('#qd').value},m=$('#qw').value;
+  if(m==='wk')q.w=[1,2,3,4,5];else if(m==='we')q.w=[6,0];
+  else if(m==='cus'){q.w=[...document.querySelectorAll('.dw:checked')].map(x=>+x.value);if(!q.w.length)return toast('Chọn ít nhất một ngày')}
+  else if(m==='once')q.o=$('#qo').value||today();
+  S.quests.push(q);save();render();
 }
 function delQ(id,e){e.stopPropagation();if(!confirm('Xóa nhiệm vụ này?'))return;S.quests=S.quests.filter(q=>q.id!=id);save();render()}
 function setHard(v){S.hard=v;save();toast(v?'Hard Mode bật: bỏ nhiệm vụ sẽ bị trừ XP':'Hard Mode tắt');render()}
@@ -190,17 +203,20 @@ function home(){
   <div><b>${dayN} ngày</b><span class="mu">Từ khi bắt đầu (${fd(S.start)})</span></div>
   <div><b>${S.fullDays+(ad?1:0)}</b><span class="mu">Ngày hoàn thành 100%</span></div>
   <div><b>${Math.floor(fm/60)}g ${fm%60}p</b><span class="mu">Tổng thời gian tập trung</span></div></div></section>
-  <section class="card full"><h2>Nhiệm vụ hôm nay (${dn.length}/${S.quests.length})</h2>
-    ${S.quests.length?S.quests.map(q=>{const d=dn.includes(q.id),[dl,xp,sp]=DIFF[q.d];
+  <section class="card full"><h2>Nhiệm vụ hôm nay (${dn.length}/${todayQ().length})</h2>
+    ${todayQ().length?todayQ().map(q=>{const d=dn.includes(q.id),[dl,xp,sp]=DIFF[q.d];
       return`<div class="q ${d?'d':''}" onclick="toggle('${q.id}')" role="checkbox" aria-checked="${d}" tabindex="0" onkeydown="if(event.target===this&&(event.key===' '||event.key==='Enter')){event.preventDefault();toggle('${q.id}')}">
       <span class="ck">✓</span><div class="n"><div class="qt">${esc(q.n)}</div><div class="qm"><span class="tag ${q.d}">${dl}</span>
-      <span class="mu">+${xp} XP · +${sp} ${STATS[q.s][0]} · +${COIN[q.d]} coin</span></div></div>
-      <button class="btn s" style="padding:4px 10px" onclick="delQ('${q.id}',event)">Xóa</button></div>`}).join(''):'<p class="mu">Chưa có nhiệm vụ. Thêm nhiệm vụ đầu tiên bên dưới.</p>'}
+      <span class="mu">+${xp} XP · +${sp} ${STATS[q.s][0]} · +${COIN[q.d]} coin</span>${q.o||(q.w&&q.w.length&&q.w.length<7)?'<span class="mu">· '+sched(q)+'</span>':''}</div></div>
+      <button class="btn s" style="padding:4px 10px" onclick="delQ('${q.id}',event)">Xóa</button></div>`}).join(''):'<p class="mu">Hôm nay không có nhiệm vụ nào. Thêm nhiệm vụ bên dưới.</p>'}
     <div class="row"><input type="text" id="qn" placeholder="Nhiệm vụ mới" onkeydown="if(event.key==='Enter')addQ()">
       <select id="qs">${Object.entries(STATS).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select>
       <select id="qd">${Object.entries(DIFF).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select>
       <button class="btn" onclick="addQ()">Thêm</button></div>
+    <div class="row" style="align-items:center"><select id="qw" onchange="schedUI()"><option value="all">Lặp hàng ngày</option><option value="wk">Thứ 2 đến Thứ 6</option><option value="we">Thứ 7 và Chủ nhật</option><option value="cus">Chọn ngày trong tuần</option><option value="once">Chỉ một ngày</option></select>
+    <span id="qdays" style="display:none">${WD.map(v=>`<label class="mu"><input type="checkbox" class="dw" value="${v}"> ${DN[v]}</label>`).join('')}</span><input type="date" id="qo" value="${t}" style="display:none"></div>
   </section>
+  <section class="card full"><h2>Tất cả nhiệm vụ và lịch (${S.quests.length})</h2>${S.quests.map(q=>`<div class="f" style="align-items:center"><span>${esc(q.n)}<br><span class="mu">${sched(q)} · ${DIFF[q.d][0]} · ${STATS[q.s][0]}</span></span><button class="btn s" onclick="delQ('${q.id}',event)">Xóa</button></div>`).join('')||'<p class="mu">Chưa có nhiệm vụ.</p>'}</section>
   <section class="card full"><h2>Thẻ động lực hôm nay</h2><p class="mantra">${mantra}</p>
     <button class="btn s" onclick="mi++;render()">Rút thẻ khác</button>
     <button class="btn s" style="float:right" onclick="resetAll()">Xóa dữ liệu</button></section>
@@ -298,7 +314,8 @@ function setBg(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r
 function setTab(){return`<div class="grid"><section class="card full"><h2>Ảnh nền</h2>
   <input type="file" accept="image/*" onchange="setBg(this)">
   ${S.bg?`<div class="row"><label class="mu">Độ tối lớp phủ <input type="range" min="40" max="95" value="${S.dim*100}" oninput="S.dim=this.value/100;applyBg();save()"></label><button class="btn s" onclick="S.bg='';save();applyBg();render()">Xóa ảnh nền</button></div>`:'<p class="mu">Chọn một ảnh từ máy. Ảnh được nén và lưu ngay trong trình duyệt, không tải lên đâu cả.</p>'}</section>
-  <section class="card full"><h2>Dữ liệu</h2><button class="btn s" onclick="resetAll()">Xóa toàn bộ dữ liệu</button></section></div>`}
+  <section class="card full"><h2>Dữ liệu và phiên bản</h2><p class="mu">Phiên bản ${VERSION}</p>
+  <div class="row" style="margin-top:0"><button class="btn" onclick="freshLoad()">Tải bản mới nhất</button><button class="btn s" onclick="exportData()">Xuất sao lưu</button><label class="btn s" style="cursor:pointer">Nhập sao lưu<input type="file" accept=".json,application/json" hidden onchange="importData(this)"></label><button class="btn s" onclick="resetAll()">Xóa toàn bộ dữ liệu</button></div></section></div>`}
 
 const TABS=[['home','Bảng điều khiển',home],['focus','Tập trung',focusTab],['cal','Calo',calTab],['jr','Nhật ký',jrTab],['book','Sách',bookTab],['shop','Cửa hàng',shopTab],['set','Cài đặt',setTab]];
 function render(){
@@ -307,7 +324,7 @@ function render(){
   $('#nav').innerHTML=TABS.map(t=>`<button class="${tab===t[0]?'on':''}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join('');
   $('#main').innerHTML=TABS.find(t=>t[0]===tab)[2]();
 }
-rollover();applyBg();render();
+rollover();S.quests=S.quests.filter(q=>!q.o||q.o>=today());applyBg();render();
 </script>
 </body>
 </html>
